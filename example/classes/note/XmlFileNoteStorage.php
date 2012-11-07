@@ -12,4 +12,3 @@ class XmlFileNoteStorage implements NoteStorage {
 	}
 
 }
-?>

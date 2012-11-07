@@ -5,8 +5,8 @@ class Application {
 	private $writeFormViewPath;
 	
 	function __construct($writer, $writeFormViewPath) {
-		$this -> writer = $writer;
-		$this -> writeFormViewPath = $writeFormViewPath;
+		$this->writer = $writer;
+		$this->writeFormViewPath = $writeFormViewPath;
 	}
 	
 	function run() {
@@ -20,12 +20,12 @@ class Application {
 		switch($do) {
 			
 			case "write":
-				$this -> writer -> write($args["note"]);
+				$this->writer->write($args["note"]);
 				echo '<p><a href="index.php">Back</a></p>';
 			break;
 			
 			default:
-				include $this -> writeFormViewPath;
+				include $this->writeFormViewPath;
 			break;
 			
 		}
@@ -33,4 +33,3 @@ class Application {
 	}
 	
 }
-?>
