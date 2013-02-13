@@ -7,6 +7,7 @@ building objects and resolving dependencies.
 
 Put the `wire/framework` directory in your PHP path:
 
+    <?php
     set_include_path(implode(PATH_SEPARATOR, array(
         get_include_path()
         , "path/to/wire/framework" )));
@@ -33,6 +34,7 @@ to the `WireFactory` constructor:
 The constructor to the `dot.notation.path.to.Class` class should be as follows and imagine it
 also has the following `do` method:
 
+    <?php
     class Class {
 
         private $dependency;
@@ -51,6 +53,7 @@ also has the following `do` method:
 
 Then the `dot.notation.path.to.Dependency` is as follows:
 
+    <?php
     class Dependency {
 
         function output($value) {
@@ -88,6 +91,7 @@ WireFactory resolves by type so a generic dependency can be resolved by a derive
 
 Dependency extended looks like this:
 
+    <?php
     require_once "Dependency.php";
 
     class DependencyExtended extends Dependency {
@@ -103,3 +107,35 @@ The result is then:
 	// Returns an instance of class containing dependency
 	$instance = $factory->getInstance("dot.notation.path.to.Class");
     $instance->do(); // Echoes "Thoust value doth verily produce 1"
+
+# Resolving by interface
+
+The same is also true of interfaces. If instead `dot.notation.path.to.Dependency` was an
+interface:
+
+    <?php
+    interface Dependency {
+
+        function output($value);
+
+    }
+
+And the derived class was:
+
+    <?php
+    require_once "Dependency.php";
+
+    class DependencyImplementor implements Dependency {
+
+        function output($value) {
+            echo "Thoust value doth verily produce $value";
+        }
+
+    }
+
+Changing the definition to:
+
+    // This is a class without any dependencies
+    $dependency_def = array( "class" => "dot.notation.path.to.DependencyImplementor" );
+
+Would produce the same result as the last example.
