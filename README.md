@@ -74,3 +74,32 @@ This is in effect performing the following:
     $instance = new Class($dependency, 1);
     $instance->do();
     
+# Resolving by type
+
+WireFactory resolves by type so a generic dependency can be resolved by a derived class:
+
+    // This is a class that has one dependency and one value
+	$class_def = array( "class" => "dot.notation.path.to.Class"
+                      , "args" => array( array( "class" => "dot.notation.path.to.Dependency" )
+                                       , array( "value" => 1 )));
+
+    // This is a class without any dependencies
+    $dependency_def = array( "class" => "dot.notation.path.to.DependencyExtended" );
+
+Dependency extended looks like this:
+
+    require_once "Dependency.php";
+
+    class DependencyExtended extends Dependency {
+
+        function output($value) {
+            echo "Thoust value doth verily produce $value";
+        }
+
+    }
+
+The result is then:
+
+	// Returns an instance of class containing dependency
+	$instance = $factory->getInstance("dot.notation.path.to.Class");
+    $instance->do(); // Echoes "Thoust value doth verily produce 1"
