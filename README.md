@@ -66,5 +66,11 @@ necessarily directly the same type).
 	$instance = $factory->getInstance("dot.notation.path.to.Class");
     $instance->do(); // Echoes "The value is 1"
 
+This is in effect performing the following:
 
+    require_once "dot/notation/path/to/Dependency.php";
+    $dependency = new Dependency();
+    require_once "dot/notation/path/to/Class.php";
+    $instance = new Class($dependency, 1);
+    $instance->do();
     
